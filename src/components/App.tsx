@@ -1,6 +1,7 @@
 import React from 'react';
-import logo from '../assets/logo.svg';
-import '../styles/App.css';
+import logo from './assets/logo.svg';
+import './styles/App.css';
+import DeliveryOrderPriceCalculator from './DeliveryOrderPriceCalculator';
 
 function App() {
   return (

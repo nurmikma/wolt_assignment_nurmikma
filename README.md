@@ -7,6 +7,7 @@ A React and TypeScript-based web app to calculate delivery fees and surcharges f
 ## 🚀 Getting Started
 
 ### Setup
+
 1. Clone the repository:
    ```bash
    git clone <repo-url>
@@ -29,13 +30,13 @@ A React and TypeScript-based web app to calculate delivery fees and surcharges f
 
 ## 📜 Scripts
 
-| Command             | Description                                                |
-|---------------------|------------------------------------------------------------|
-| `npm start`         | Runs the app in development mode.                          |
-| `npm test`          | Launches the test runner in watch mode.                    |
-| `npm run build`     | Builds the app for production in the `build` folder.       |
-| `npm run lint`      | Lints the codebase using ESLint.                           |
-| `npm run format`    | Formats code using Prettier.                               |
+| Command          | Description                                          |
+| ---------------- | ---------------------------------------------------- |
+| `npm start`      | Runs the app in development mode.                    |
+| `npm test`       | Launches the test runner in watch mode.              |
+| `npm run build`  | Builds the app for production in the `build` folder. |
+| `npm run lint`   | Lints the codebase using ESLint.                     |
+| `npm run format` | Formats code using Prettier.                         |
 
 ---
 
@@ -51,6 +52,7 @@ A React and TypeScript-based web app to calculate delivery fees and surcharges f
 ## 🧪 Testing
 
 Run tests with:
+
 ```bash
 npm test
 ```
