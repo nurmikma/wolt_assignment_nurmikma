@@ -1,17 +1,16 @@
-// src/hooks/useLocation.ts
 import { useState } from 'react';
 
 export const useLocation = () => {
-  const [latitude, setLatitude] = useState<string | number>('');
-  const [longitude, setLongitude] = useState<string | number>('');
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   const [error, setError] = useState<string>('');
 
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLatitude(position.coords.latitude.toFixed(6));
-          setLongitude(position.coords.longitude.toFixed(6));
+          setLatitude(parseFloat(position.coords.latitude.toFixed(6)));
+          setLongitude(parseFloat(position.coords.longitude.toFixed(6)));
         },
         () => {
           setError('Unable to fetch your location.');

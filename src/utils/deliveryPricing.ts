@@ -1,5 +1,4 @@
 // src/utils/deliveryPricing.ts
-import { calculateDistance } from './deliveryUtils';
 
 export const calculateDeliveryPricing = ({
   cartValue,
@@ -60,3 +59,26 @@ export const calculateDeliveryPricing = ({
     totalPrice,
   };
 };
+function calculateDistance(
+  userLatitude: number,
+  userLongitude: number,
+  venueLatitude: number,
+  venueLongitude: number,
+): number {
+  const toRadians = (degrees: number) => degrees * (Math.PI / 180);
+
+  const earthRadiusKm = 6371;
+
+  const dLat = toRadians(venueLatitude - userLatitude);
+  const dLon = toRadians(venueLongitude - userLongitude);
+
+  const lat1 = toRadians(userLatitude);
+  const lat2 = toRadians(venueLatitude);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return earthRadiusKm * c;
+}
