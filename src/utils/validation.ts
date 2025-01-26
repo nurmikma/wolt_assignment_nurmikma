@@ -1,4 +1,3 @@
-// src/utils/validation.ts
 export const validateLatitudeLongitude = (
   value: string | number,
   type: 'latitude' | 'longitude',

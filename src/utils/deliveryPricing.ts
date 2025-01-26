@@ -1,4 +1,10 @@
-// src/utils/deliveryPricing.ts
+export interface PricingDetails {
+  cartValue: number;
+  smallOrderSurcharge: number;
+  deliveryFee: number;
+  distance: number;
+  totalPrice: number;
+}
 
 export const calculateDeliveryPricing = ({
   cartValue,
@@ -14,7 +20,7 @@ export const calculateDeliveryPricing = ({
   userLongitude: number;
   staticData: any;
   dynamicData: any;
-}) => {
+}): PricingDetails => {
   const orderMinimumNoSurcharge =
     dynamicData.venue_raw.delivery_specs.order_minimum_no_surcharge;
   const basePrice =
@@ -23,32 +29,28 @@ export const calculateDeliveryPricing = ({
     dynamicData.venue_raw.delivery_specs.delivery_pricing.distance_ranges;
   const venueCoordinates = staticData.venue_raw.location.coordinates;
 
-  // Calculate small order surcharge
   const smallOrderSurcharge = Math.max(0, orderMinimumNoSurcharge - cartValue);
 
-  // Calculate distance
   const distance = calculateDistance(
     userLatitude,
     userLongitude,
-    venueCoordinates[1], // Venue latitude
-    venueCoordinates[0], // Venue longitude
+    venueCoordinates[1],
+    venueCoordinates[0],
   );
 
-  // Calculate delivery fee
+  // Example update in delivery pricing logic:
   let deliveryFee = basePrice;
   for (const range of distanceRanges) {
     if (distance >= range.min && (range.max === 0 || distance < range.max)) {
-      deliveryFee += range.a + Math.round((range.b * distance) / 10);
+      deliveryFee += range.a + Math.round((range.b * distance) / 100); // Adjust calculation to work in meters
       break;
     }
   }
 
-  // If the distance is out of range
   if (distance >= distanceRanges[distanceRanges.length - 1].min) {
     throw new Error('Delivery not possible due to distance');
   }
 
-  // Total price
   const totalPrice = cartValue + smallOrderSurcharge + deliveryFee;
 
   return {
@@ -59,6 +61,7 @@ export const calculateDeliveryPricing = ({
     totalPrice,
   };
 };
+
 function calculateDistance(
   userLatitude: number,
   userLongitude: number,
@@ -67,7 +70,8 @@ function calculateDistance(
 ): number {
   const toRadians = (degrees: number) => degrees * (Math.PI / 180);
 
-  const earthRadiusKm = 6371;
+  const earthRadiusKm = 6371; // Radius of the Earth in kilometers
+  const earthRadiusM = earthRadiusKm * 1000; // Radius of the Earth in meters
 
   const dLat = toRadians(venueLatitude - userLatitude);
   const dLon = toRadians(venueLongitude - userLongitude);
@@ -80,5 +84,7 @@ function calculateDistance(
     Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  return earthRadiusKm * c;
+  const earthRadius = earthRadiusM * c;
+
+  return parseFloat(earthRadius.toFixed(0));
 }
