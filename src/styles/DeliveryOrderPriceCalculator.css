@@ -29,23 +29,22 @@ label {
 
 /* Input Fields */
 /* Input Fields */
-input[type="text"] {
+input[type='text'] {
   width: 100%;
-  padding: 12px;  /* Equal padding for all sides */
+  padding: 12px; /* Equal padding for all sides */
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
   color: #333;
-  box-sizing: border-box;  /* Ensures padding is included in the total width */
+  box-sizing: border-box; /* Ensures padding is included in the total width */
 }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
 
 /* Buttons */
 button {
@@ -86,14 +85,14 @@ div > p {
 }
 
 /* Error Handling */
-p[style*="color: red"] {
+p[style*='color: red'] {
   color: red;
   font-weight: bold;
   text-align: center;
 }
 
 /* Button container */
-button[type="button"] {
+button[type='button'] {
   max-width: 200px;
   margin: 0 auto;
   display: block;

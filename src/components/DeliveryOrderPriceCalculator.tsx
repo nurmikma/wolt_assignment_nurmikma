@@ -38,6 +38,10 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
     }
   }, [latitude, longitude]);
 
+  const formatPrice = (value: number): string => {
+    return `€${(value / 100).toFixed(2)}`;
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setError('');
@@ -57,9 +61,8 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       }
 
       const venueData = await fetchVenueData(venueSlug);
-
       const calculatedPricing = calculateDeliveryPricing({
-        cartValue: parseFloat(cartValue as string),
+        cartValue: Math.round(parseFloat(cartValue as string) * 100), // Convert to cents
         venueSlug,
         userLatitude: parseFloat(userLatitude as string),
         userLongitude: parseFloat(userLongitude as string),
@@ -89,7 +92,7 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       <input
         id="venueSlug"
         type="text"
-        data-test-id="venueSlug"
+        data-testid="venueSlug"
         value={venueSlug}
         onChange={(e) => setVenueSlug(e.target.value)}
       />
@@ -100,7 +103,7 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       <input
         id="cartValue"
         type="text"
-        data-test-id="cartValue"
+        data-testid="cartValue"
         value={cartValue}
         onChange={(e) => setCartValue(e.target.value)}
       />
@@ -111,7 +114,7 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       <input
         id="userLatitude"
         type="text"
-        data-test-id="userLatitude"
+        data-testid="userLatitude"
         value={userLatitude}
         onChange={(e) => setUserLatitude(e.target.value)}
       />
@@ -122,19 +125,19 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       <input
         id="userLongitude"
         type="text"
-        data-test-id="userLongitude"
+        data-testid="userLongitude"
         value={userLongitude}
         onChange={(e) => setUserLongitude(e.target.value)}
       />
 
-      <button type="button" onClick={getLocation} data-test-id="getLocation">
+      <button type="button" onClick={getLocation} data-testid="getLocation">
         Get Location
       </button>
 
       <button
         type="button"
         onClick={handleSubmit}
-        data-test-id="calculateDelivery"
+        data-testid="calculateDelivery"
       >
         Calculate
       </button>
@@ -144,11 +147,34 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
       {pricing && (
         <div>
           <h2>Pricing Breakdown</h2>
-          <p>Cart Value: €{pricing.cartValue}</p>
-          <p>Small Order Surcharge: €{pricing.smallOrderSurcharge}</p>
-          <p>Delivery Fee: €{pricing.deliveryFee}</p>
-          <p>Distance: {pricing.distance} meters</p>
-          <p>Total Price: €{pricing.totalPrice}</p>
+          <p>
+            Cart Value:{' '}
+            <span data-raw-value={pricing.cartValue}>
+              {formatPrice(pricing.cartValue)}
+            </span>
+          </p>
+          <p>
+            Small Order Surcharge:{' '}
+            <span data-raw-value={pricing.smallOrderSurcharge}>
+              {formatPrice(pricing.smallOrderSurcharge)}
+            </span>
+          </p>
+          <p>
+            Delivery Fee:{' '}
+            <span data-raw-value={pricing.deliveryFee}>
+              {formatPrice(pricing.deliveryFee)}
+            </span>
+          </p>
+          <p>
+            Distance:{' '}
+            <span data-raw-value={pricing.distance}>{pricing.distance} m</span>
+          </p>
+          <p>
+            Total Price:{' '}
+            <span data-raw-value={pricing.totalPrice}>
+              {formatPrice(pricing.totalPrice)}
+            </span>
+          </p>
         </div>
       )}
 
