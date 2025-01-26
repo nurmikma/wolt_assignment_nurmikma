@@ -38,11 +38,10 @@ export const calculateDeliveryPricing = ({
     venueCoordinates[0],
   );
 
-  // Example update in delivery pricing logic:
   let deliveryFee = basePrice;
   for (const range of distanceRanges) {
     if (distance >= range.min && (range.max === 0 || distance < range.max)) {
-      deliveryFee += range.a + Math.round((range.b * distance) / 100); // Adjust calculation to work in meters
+      deliveryFee += range.a + Math.round((range.b * distance) / 100);
       break;
     }
   }

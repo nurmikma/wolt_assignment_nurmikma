@@ -28,16 +28,15 @@ label {
 }
 
 /* Input Fields */
-/* Input Fields */
 input[type='text'] {
   width: 100%;
-  padding: 12px; /* Equal padding for all sides */
+  padding: 12px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
   color: #333;
-  box-sizing: border-box; /* Ensures padding is included in the total width */
+  box-sizing: border-box;
 }
 
 input[type='text']:focus {

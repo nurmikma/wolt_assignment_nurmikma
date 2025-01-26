@@ -1,4 +1,3 @@
-// src/utils/apiService.ts
 export const fetchVenueData = async (venueSlug: string) => {
   const staticUrl = `https://consumer-api.development.dev.woltapi.com/home-assignment-api/v1/venues/${venueSlug}/static`;
   const dynamicUrl = `https://consumer-api.development.dev.woltapi.com/home-assignment-api/v1/venues/${venueSlug}/dynamic`;

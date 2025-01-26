@@ -3,7 +3,6 @@ import DeliveryOrderPriceCalculator from '../components/DeliveryOrderPriceCalcul
 import React from 'react';
 import '@testing-library/jest-dom';
 
-// Mock implementations for useLocation and API calls
 jest.mock('../hooks/useLocation', () => ({
   useLocation: () => ({
     latitude: 60.192059,
@@ -82,7 +81,6 @@ describe('DeliveryOrderPriceCalculator', () => {
     fireEvent.click(screen.getByTestId('calculateDelivery'));
 
     await waitFor(() => {
-      // Check if data-raw-value is set on the correct element (span)
       expect(screen.getByText('€2000.00')).toHaveAttribute(
         'data-raw-value',
         '200000',
@@ -95,10 +93,8 @@ describe('DeliveryOrderPriceCalculator', () => {
 
     fireEvent.click(screen.getByTestId('getLocation'));
 
-    // Ensure getLocation was called
     expect(getLocation).toHaveBeenCalled();
 
-    // Wait for latitude and longitude fields to be updated
     await waitFor(() => {
       expect(screen.getByTestId('userLatitude')).toHaveValue('60.192059');
       expect(screen.getByTestId('userLongitude')).toHaveValue('24.945831');

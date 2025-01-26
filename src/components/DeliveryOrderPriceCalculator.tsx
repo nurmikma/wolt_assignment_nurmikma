@@ -62,7 +62,7 @@ const DeliveryOrderPriceCalculator: React.FC = () => {
 
       const venueData = await fetchVenueData(venueSlug);
       const calculatedPricing = calculateDeliveryPricing({
-        cartValue: Math.round(parseFloat(cartValue as string) * 100), // Convert to cents
+        cartValue: Math.round(parseFloat(cartValue as string) * 100),
         venueSlug,
         userLatitude: parseFloat(userLatitude as string),
         userLongitude: parseFloat(userLongitude as string),
